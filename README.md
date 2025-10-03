@@ -19,12 +19,14 @@ It integrates Central Composite Design (CCD) for experiment design, five synthet
 - Night Temperature (°C)
 - Humidity (%)
 - CO₂ concentration (ppm)
+  
 - **Synthetic Yield Simulation**: Five simulation functions with different structures:
 - Model_A_linear
 - Model_B_saturation_optimum
 - Model_C_interactions_heterosc
 - Model_D_threshold_plateau
 - Model_E_periodic_nonseparable
+  
 - **Machine Learning**: Train/test split, Random Forest Regressor
 - **Evaluation Metrics**: RMSE, R², MAE
 - **Optimal Condition Search**: Predicts yield for the entire parameter space

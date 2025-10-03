@@ -5,21 +5,26 @@
 [![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](#-requirements)
 [![GitHub Stars](https://img.shields.io/github/stars/GaneshAl/Speed_breeding?style=social)](https://github.com/GaneshAl/Speed_breeding/stargazers)
 
-This repository contains a Python workflow for **designing experiments**, **generating synthetic crop yield data**, and **training a machine learning model** to identify optimal environmental conditions for speed breeding.  
+This repository provides a simulation + machine learning workflow for exploring optimal environmental conditions in speed breeding using synthetic data.
 
-It uses **Central Composite Design (CCD)** to explore parameter space, simulates yield with a deterministic model plus noise, fits a **Random Forest Regressor**, evaluates performance, and provides **SHAP feature importance analysis** for model interpretability.
+It integrates Central Composite Design (CCD) for experiment design, five synthetic yield models, Random Forest regression, and SHAP interpretability to study feature effects and interactions.
 
 ---
 
 ## 📌 Features
-- **Experimental Design**: Uses `pyDOE2` Central Composite Design with 6 environmental factors:
-  - Photoperiod (hours)
-  - Light Intensity (PPFD)
-  - Day Temperature (°C)
-  - Night Temperature (°C)
-  - Humidity (%)
-  - CO₂ concentration (ppm)
-- **Synthetic Yield Simulation**: Deterministic formula + random noise for realism
+- **Experimental Design**:Central Composite Design (pyDOE2) with 6 environmental factors:
+- Photoperiod (hours)
+- Light Intensity (PPFD)
+- Day Temperature (°C)
+- Night Temperature (°C)
+- Humidity (%)
+- CO₂ concentration (ppm)
+- **Synthetic Yield Simulation**: Five simulation functions with different structures:
+- Model_A_linear
+- Model_B_saturation_optimum
+- Model_C_interactions_heterosc
+- Model_D_threshold_plateau
+- Model_E_periodic_nonseparable
 - **Machine Learning**: Train/test split, Random Forest Regressor
 - **Evaluation Metrics**: RMSE, R², MAE
 - **Optimal Condition Search**: Predicts yield for the entire parameter space
@@ -28,6 +33,7 @@ It uses **Central Composite Design (CCD)** to explore parameter space, simulates
   - Train vs Test predictions
   - Residual plot
   - SHAP bar and beeswarm plots
+  - Feature importance ranking
 
 ---
 
@@ -53,15 +59,14 @@ python main.py
 
 ---
 
-## 📂 Outputs (saved in the `output_dir` path you set in the script)
-- `synthetic_data_with_yield.csv` — full experimental dataset
-- `ccd_combinations.csv` — CCD combinations without yield
-- `full_parameter_space_predictions.csv` — predictions for all parameter combinations
-- `shap_summary_bar.svg` — SHAP feature importance (bar)
-- `shap_beeswarm.svg` — SHAP beeswarm plot
-- `train_vs_test.svg` — Train vs Test scatter plot
-- `residual_plot.svg` — Residual analysis
-
+## 📂 Outputs 
+All results are saved to the OUTPUT_DIR you define in the script. For each model (A–E), the pipeline saves:
+- *_ccd_data.csv — CCD dataset with simulated yields
+- *_full_grid_predictions.csv — predictions for all parameter combinations
+- *_feature_importances.csv — Random Forest feature importance
+- *_train_vs_test.png — scatter plot of train/test predictions
+- *_residuals.png — residual analysis
+- *_shap_summary.png & *_shap_beeswarm.png — SHAP plots (if enabled)
 ---
 
 ## 📊 Example Output
@@ -75,7 +80,7 @@ python main.py
  ...
 ```
 
-**Optimal Parameter Combination**:
+**Optimal Parameter Combination (example) **:
 ```
 Photoperiod_h           20.0
 LightIntensity_PPFD    600.0
